@@ -1,51 +1,90 @@
-from imports import *
+from utils import *
 from pencil_sketch import *
 from brightness_adjustment import *
 from mosaic import *
 from filters import *
 from bit_planes import *
+from combine_images import *
+from intensity import *
+from quantization import *
 
 
-def combine_images(image1: np.ndarray, image2: np.ndarray, weight1: float, weight2: float) -> None:
-    # Ensure the images are normalized to the range [0, 1]
-    image1_normalized = image1 / 255.0
-    image2_normalized = image2 / 255.0
+def main() -> None:
+    input_rgb_images: list[str] = [
+        'baboon_colored.png',
+        'monalisa.png',
+        'peppers.png',
+        'watch.png'
+    ]
 
-    # Combine the images using weighted average
-    combined_image = (weight1 * image1_normalized + weight2 * image2_normalized)
-
-
-    plt.imsave('T-01/out-images/1.7_combined_image.png', combined_image, cmap="gray")
-
-
-def intensity_transformation(image: np.ndarray) -> None:
-    negative_image = -image
-    plt.imsave('T-01/out-images/1.8.1_negative_image.png', negative_image, cmap="gray")
-
-    contrast_image = np.clip(image, 100, 200)
-    plt.imsave('T-01/out-images/1.8.2_contrast_image.png', contrast_image, cmap="gray")
-
-    inverted_even_lines_image = image.copy()
-    inverted_even_lines_image[::2] = image[::2, ::-1]
-    plt.imsave('T-01/out-images/1.8.3_inverted_even_lines_image.png', inverted_even_lines_image, cmap="gray")
-
-    reflected_lines_image = image.copy()
-    height, width = image.shape[:2]
-    top_half = image[:height // 2]
-    reflected_lines_image[height // 2:] = top_half[::-1]
-    plt.imsave('T-01/out-images/1.8.4_reflected_lines_image.png', reflected_lines_image, cmap="gray")
-
-    vertical_mirror_image = image.copy()
-    vertical_mirror_image = image[::-1]
-    plt.imsave('T-01/out-images/1.8.5_vertical_mirror_image.png', vertical_mirror_image, cmap="gray")
+    input_monochromatic_images: list[str] = [
+        'baboon_monochromatic.png',
+        'butterfly.png',
+        'city.png',
+        'house.png'
+    ]
 
 
-def quantization(image: np.ndarray, bit_level: int) -> None:
-    quantizaded_image = (image // (256 // (2 ** bit_level))) * (256 // (2 ** bit_level))
-    plt.imsave('T-01/out-images/1.9_baboon_monocromatica_quantization.png', quantizaded_image, cmap="gray")
+    # 1.1 - Pencil Sketch
+    #for i, img in enumerate(input_rgb_images):
+    #    pencil_sketch_img = turn2PencilSketch(io.imread('T-01/in-images/' + img))    
+    #    plt.imsave("T-01/out-images/1/" + "1." + img, pencil_sketch_img, cmap="gray")
 
 
-def filter_aplication(image: np.ndarray) -> None:
+    # 1.2 - Brightness Adjustment
+    #gamma_values = [0.05, 0.2, 0.5, 1, 1.5, 2.5, 5]
+    #for i in range(len(gamma_values)):
+    #    brightness_adjusted_img = applyBrightnessAdjustment(io.imread('T-01/in-images/baboon_monochromatic.png'), gamma_values[i])
+    #    plt.imsave(f'T-01/out-images/2/2.{i+1}.baboon_monochromatic_{gamma_values[i]}.png', brightness_adjusted_img, cmap="gray")
+
+
+    # 1.3 - Mosaic
+    #for i, img in enumerate(input_monochromatic_images):
+    #    mosaic_img = createMosaic(io.imread('T-01/in-images/' + img), 4)    
+    #    plt.imsave("T-01/out-images/3/" + "3." + img, mosaic_img, cmap="gray")
+
+    
+    # 1.4 - Color change
+    #for i, img in enumerate(input_rgb_images):
+    #    old_photo_img = applyOldPhotoFilter(io.imread('T-01/in-images/' + img))
+    #    plt.imsave("T-01/out-images/4/" + "4." + img, old_photo_img, cmap="gray")
+
+    
+    # 1.5 - Change colored images
+    # img_a and img_b are of type np.ndarray
+    #for i, img in enumerate(input_rgb_images):
+    #    img_a, img_b = transformColorImage(io.imread('T-01/in-images/' + img))
+    #    plt.imsave("T-01/out-images/5/a/" + "5.a." + img, img_a, cmap="gray")
+    #    plt.imsave("T-01/out-images/5/b/" + "5.b." + img, img_b)
+
+    
+    # 1.6 - Extract bit planes
+    #bit_planes: list[np.ndarray] = extractBitPlanes(io.imread('T-01/in-images/baboon_monochromatic.png'))
+    #for i in range(len(bit_planes)):
+    #    plt.imsave(f"T-01/out-images/6/6.{i}.babbon.png", bit_planes[i], cmap="gray")
+
+
+    # 1.7 - Combine images
+    #combined_img = combineImages(io.imread('T-01/in-images/baboon_monochromatic.png'), io.imread('T-01/in-images/butterfly.png'), 0.3, 0.7)
+    #plt.imsave("T-01/out-images/7/7.1.baboon_butterfly.png", combined_img, cmap="gray")
+
+
+    # 1.8 - Intensity transformation
+    #negative_img, contrast_img, inverted_even_lines_img, reflected_lines_img, vertical_mirror_img = applyIntensityTransformation(io.imread('T-01/in-images/city.png'))
+    #plt.imsave("T-01/out-images/8/8.1.city_negative.png", negative_img, cmap="gray")
+    #plt.imsave("T-01/out-images/8/8.2.city_contrast.png", contrast_img, cmap="gray")
+    #plt.imsave("T-01/out-images/8/8.3.city_inverted_even_lines.png", inverted_even_lines_img, cmap="gray")
+    #plt.imsave("T-01/out-images/8/8.4.city_reflected_lines.png", reflected_lines_img, cmap="gray")
+    #plt.imsave("T-01/out-images/8/8.5.city_vertical_mirror.png", vertical_mirror_img, cmap="gray")
+
+    
+    # 1.9 - Quantization
+    #for i in range(1, 9):
+    #    quantizaded_img = quantization(io.imread('T-01/in-images/baboon_monochromatic.png'), i)
+    #    plt.imsave(f"T-01/out-images/9/9.{i-1}.baboon_{2**i}.png", quantizaded_img, cmap="gray")
+
+    
+    # 1.10 - Filter application
     h1 = np.array([[0, 0, -1, 0, 0], 
                    [0, -1, -2, -1, 0],
                    [-1, -2, 16, -2, -1],
@@ -101,74 +140,13 @@ def filter_aplication(image: np.ndarray) -> None:
     h11 = np.array([[-1, -1, 0],
                     [-1, 0, 1],
                     [0, 1, 1]])
-
-    def apply_filter(image: np.ndarray, filter: np.array) -> np.ndarray:
-        filtered_image = np.zeros_like(image, dtype=np.float32)
-        pad_size = filter.shape[0] // 2
-        padded_image = np.pad(image, pad_size, mode='constant', constant_values=0)
-
-        for i in range(image.shape[0]):
-            for j in range(image.shape[1]):
-                filtered_image[i, j] = np.sum(filter * padded_image[i:i + filter.shape[0], j:j + filter.shape[1]])
-
-        np.clip(filtered_image, 0, 255).astype(np.uint8)
-
-        return filtered_image
     
-    plt.imsave('T-01/out-images/1.10.1_house.png', apply_filter(image, h1), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.2_house.png', apply_filter(image, h2), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.3_house.png', apply_filter(image, h3), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.4_house.png', apply_filter(image, h4), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.5_house.png', apply_filter(image, h5), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.6_house.png', apply_filter(image, h6), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.7_house.png', apply_filter(image, h7), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.8_house.png', apply_filter(image, h8), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.9_house.png', apply_filter(image, h9), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.10_house.png', apply_filter(image, h10), cmap="gray")
-    plt.imsave('T-01/out-images/1.10.11_house.png', apply_filter(image, h11), cmap="gray")
+    h12 = np.sqrt(h3**2 + h4**2)
 
-def main() -> None:
-    ### 
-    # Note: create a script to run all images from in-images folder
-    # ###
-    #image = io.imread('T-01/in-images/' + 'baboon_monocromatica.png')
+    final_img = applyFilter(io.imread('T-01/in-images/house.png'), h12)
 
-    # 1.1 - Pencil Sketch
-    pencil_sketch_img = turn2PencilSketch(io.imread('T-01/in-images/watch.png'))
-
-    # 1.2 - Brightness Adjustment
-    brightness_adjusted_img = applyBrightnessAdjustment(io.imread('T-01/in-images/baboon_monocromatica.png'), 1.5)
-
-    # 1.3 - Mosaic
-    mosaic_img = createMosaic(io.imread('T-01/in-images/baboon_monocromatica.png'), 4)
-
-    # 1.4 - Color change
-    old_photo_img = applyOldPhotoFilter(io.imread('T-01/in-images/watch.png'))
-
-    # 1.5 - Change colored images
-    img_a, img_b = transformColorImage(io.imread('T-01/in-images/watch.png'))
-
-    # 1.6 - Extract bit planes
-    bit_planes: list[np.ndarray] = extractBitPlanes(io.imread('T-01/in-images/baboon_monocromatica.png'))
-
-    for i in range(len(bit_planes)):
-        plt.imshow(bit_planes[i], cmap='gray')
-        plt.axis('off')
-        plt.show()
-
-    # 1.7 - Combine images
-    #combine_images(io.imread('T-01/in-images/baboon_monocromatica.png'), io.imread('T-01/in-images/butterfly.png'), 0.8, 0.2)
-
-    # 1.8 - Intensity transformation
-    #intensity_transformation(io.imread('T-01/in-images/city.png'))
-
-    # 1.9 - Quantization
-    #quantization(io.imread('T-01/in-images/baboon_monocromatica.png'), 8)
-
-    # 1.10 - Filter application
-    #filter_aplication(io.imread('T-01/in-images/house.png'))
-
-
+    plt.imsave('T-01/out-images/10/10.12.house.png', final_img, cmap="gray")
+    
 
 if __name__ == '__main__':
     main()

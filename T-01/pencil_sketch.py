@@ -1,8 +1,8 @@
-from imports import *
+from utils import *
 
 def turn2PencilSketch(src_img: np.ndarray) -> np.ndarray:
     """
-    Convert a colored image to a pencil sketch
+    Convert a colored RGB image to a pencil sketch
 
     Parameters
     ----------

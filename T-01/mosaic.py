@@ -1,4 +1,4 @@
-from imports import *
+from utils import *
 
 def createMosaic(src_img: np.ndarray, n_blocks: int) -> np.ndarray:
     """
@@ -16,6 +16,9 @@ def createMosaic(src_img: np.ndarray, n_blocks: int) -> np.ndarray:
     np.ndarray
         The mosaic image created by rearranging the blocks of the original image.
     """
+
+    if (isRGB(src_img)):
+        src_img = color.rgb2gray(src_img)
 
     # Reshape the original image into the desired number of blocks 
     array_blocks = src_img.reshape(n_blocks, src_img.shape[0]//n_blocks, n_blocks, src_img.shape[1]//n_blocks).swapaxes(1, 2)

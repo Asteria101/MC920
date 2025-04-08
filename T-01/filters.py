@@ -1,4 +1,4 @@
-from imports import *
+from utils import *
 
 def applyOldPhotoFilter(src_img: np.ndarray) -> np.ndarray:
     """
@@ -53,8 +53,22 @@ def transformColorImage(src_img: np.ndarray) -> tuple[np.ndarray]:
 
     # (a)
     final_img_a = np.dot(src_img[..., :3], filter_a.T).clip(0, 255).astype(np.uint8)
-
+    
     # (b)
     final_img_b = np.dot(src_img[..., :3], filter_b.T)
 
     return final_img_a, final_img_b
+
+
+def applyFilter(src_img: np.ndarray, filter: np.array) -> np.ndarray:
+    filtered_image = np.zeros_like(src_img, dtype=np.float32)
+    pad_size = filter.shape[0] // 2
+    padded_image = np.pad(src_img, pad_size, mode='constant', constant_values=0)
+
+    for i in range(src_img.shape[0]):
+        for j in range(src_img.shape[1]):
+            filtered_image[i, j] = np.sum(filter * padded_image[i:i + filter.shape[0], j:j + filter.shape[1]])
+
+    np.clip(filtered_image, 0, 255).astype(np.uint8)
+
+    return filtered_image
