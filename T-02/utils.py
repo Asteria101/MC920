@@ -16,8 +16,9 @@ def save(img: np.ndarray, filepath: str) -> None:
     plt.imsave(filepath, img, cmap='gray')
 
 
-def histogramIt(img : np.ndarray)-> np.ndarray:
+def histogramIt(img : np.ndarray)-> None:
     hist, bins = np.histogram(img.flatten(), 256, [0, 256])
     plt.hist(img.flatten(), 256, [0, 256], color='black')
     plt.xlim([0, 256])
     plt.show()
+    return None

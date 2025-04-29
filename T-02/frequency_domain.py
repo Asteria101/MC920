@@ -53,38 +53,42 @@ def frenquencyDomainFiltering(img: np.ndarray) -> None:
 
     # Fourier spectrum
     magnitude_spectrum = 20 * np.log(np.abs(fshift))
-    save(magnitude_spectrum, "T-02/out-images/magnitude_spectrum.png")
+    save(magnitude_spectrum, "T-02/out-images/1.2/peppers/magnitude_spectrum.png")
 
     # Apply fft inversed
     inverse_img = inverseFDT(fshift)
-    save(inverse_img, "T-02/out-images/inverse_img.png")
+    save(inverse_img, "T-02/out-images/1.2/peppers/inverse_img.png")
 
     # Low pass
-    lp_mask = masking(0, img.shape[0], img.shape[1], 30)
-    save(lp_mask, "T-02/out-images/lp_mask.png")
+    lp_mask = masking(0, img.shape[0], img.shape[1], 60)
+    save(lp_mask, "T-02/out-images/1.2/peppers/lp_mask.png")
+    save(lp_mask * magnitude_spectrum, "T-02/out-images/1.2/peppers/lp_mask_mag.png")
     lp_img = fshift * lp_mask
     lp_img = inverseFDT(lp_img)
-    save(lp_img, "T-02/out-images/lp_img.png")
+    save(lp_img, "T-02/out-images/1.2/peppers/lp_img.png")
     
     # High pass
-    hp_mask = masking(1, img.shape[0], img.shape[1], 30)
-    save(hp_mask, "T-02/out-images/hp_mask.png")
+    hp_mask = masking(1, img.shape[0], img.shape[1], 60)
+    save(hp_mask, "T-02/out-images/1.2/peppers/hp_mask.png")
+    save(hp_mask * magnitude_spectrum, "T-02/out-images/1.2/peppers/hp_mask_mag.png")
     hp_img = fshift * hp_mask
     hp_img = inverseFDT(hp_img)
-    save(hp_img, "T-02/out-images/hp_img.png")
+    save(hp_img, "T-02/out-images/1.2/peppers/hp_img.png")
 
     # Band pass
-    bp_mask = masking(2, img.shape[0], img.shape[1], 30, 60)
-    save(bp_mask, "T-02/out-images/bp_mask.png")
+    bp_mask = masking(2, img.shape[0], img.shape[1], 40, 100)
+    save(bp_mask, "T-02/out-images/1.2/peppers/bp_mask.png")
+    save(bp_mask * magnitude_spectrum, "T-02/out-images/1.2/peppers/bp_mask_mag.png")
     bp_img = fshift * bp_mask
     bp_img = inverseFDT(bp_img)
-    save(bp_img, "T-02/out-images/bp_img.png")
+    save(bp_img, "T-02/out-images/1.2/peppers/bp_img.png")
 
     # Band reject
-    br_mask = masking(3, img.shape[0], img.shape[1], 30, 60)
-    save(br_mask, "T-02/out-images/br_mask.png")
+    br_mask = masking(3, img.shape[0], img.shape[1], 40, 100)
+    save(br_mask, "T-02/out-images/1.2/peppers/br_mask.png")
+    save(br_mask * magnitude_spectrum, "T-02/out-images/1.2/peppers/br_mask_mag.png")
     br_img = fshift * br_mask
     br_img = inverseFDT(br_img)
-    save(br_img, "T-02/out-images/br_img.png")
+    save(br_img, "T-02/out-images/1.2/peppers/br_img.png")
 
     return None

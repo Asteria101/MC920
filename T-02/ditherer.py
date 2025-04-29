@@ -71,6 +71,16 @@ jarvis_judice_ninke = [[1, 0, 7/48],
                        [2, 2, 1/48]]
 
 
+def squareComparison(img: np.ndarray, side: int) -> np.ndarray:
+    if len(img.shape) == 3:
+        height, width = img.shape[:-1]
+    else:
+        height, width = img.shape
+    cy, cx = height // 2, width // 2
+    mask = img[cy - side :  cy + side, cx - side : cx + side]
+    return mask
+
+
 def dither(img: np.ndarray, technic: list[list], m: int, n: int, traverse: int) -> np.ndarray:
     if len(img.shape) == 2:
             img = img[:, :, np.newaxis]
