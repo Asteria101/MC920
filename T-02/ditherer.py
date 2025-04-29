@@ -72,27 +72,6 @@ jarvis_judice_ninke = [[1, 0, 7/48],
 
 
 def dither(img: np.ndarray, technic: list[list], m: int, n: int, traverse: int) -> np.ndarray:
-    """
-    Apply dithering to an image using the specified dithering technique.
-    Parameters
-    ----------
-        img : np.ndarray 
-            The input image to be dithered.
-        technic : list[list]:
-            The dithering technique to be used.
-        m : int
-            The width of the dithering kernel.
-        n : int
-            The height of the dithering kernel.
-        traverse : int
-            The traverse method to be used (0 for unilateral, 1 for alternated).
-
-    Returns
-    -------
-        np.ndarray
-            The dithered image.
-    """
-
     if len(img.shape) == 2:
             img = img[:, :, np.newaxis]
 
