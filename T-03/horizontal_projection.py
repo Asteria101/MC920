@@ -1,6 +1,6 @@
 from utils import *
 
-def projectHorizontally(src_img: np.ndarray) -> np.ndarray:
+def projectHorizontally(src_img: np.ndarray) -> float:
     """
     Algorithm that rotates the image based on its horizontal projection.
     
@@ -18,15 +18,9 @@ def projectHorizontally(src_img: np.ndarray) -> np.ndarray:
     height, width = src_img.shape
     center = (width // 2, height // 2)
 
-    hp = np.sum(src_img, axis = 1)
+    values = {}
 
-    def objective_function(hp):
-        return np.sum((hp[:-1] - hp[1:]) ** 2)
-
-    values = dict()
-
-    # working with neighborhood 4
-    for theta in range(-360, 361):
+    for theta in range(0, 181):
         # transformation matrix
         M = cv2.getRotationMatrix2D(center, theta, 1)
 
@@ -36,9 +30,11 @@ def projectHorizontally(src_img: np.ndarray) -> np.ndarray:
         # calculate the horizontal projection
         hp_rotated = np.sum(rotated, axis=1)
 
-        values[theta] = objective_function(hp_rotated)
+        values[theta] = np.sum((hp_rotated[:-1] - hp_rotated[1:]) ** 2)
 
     max_theta = max(values, key=values.get)
-    M = cv2.getRotationMatrix2D(center, 180 + max_theta, 1)
+    
+    if max_theta > 90:
+        max_theta = max_theta - 180
 
-    return cv2.warpAffine(src_img, M, (width, height), flags=cv2.INTER_CUBIC)
+    return max_theta

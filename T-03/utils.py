@@ -1,7 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import cv2
+
+from sys import argv
+import subprocess
 import os
+
+
 
 def show(img: np.ndarray) -> None:
     """
@@ -37,36 +42,34 @@ def save(img: np.ndarray, filepath: str) -> None:
     plt.imsave(filepath, img, cmap='gray')
 
 
-def prepare(img: np.ndarray) -> np.ndarray:
+def rotate(img: np.ndarray, angle: float) -> np.ndarray:
     """
-    Prepares the image for processing by converting it to 
-    grayscale, inverting colors, and applying a binary threshold.
+    Rotates the image by a specified angle.
 
     Parameters
     ----------
     img : np.ndarray
-        The input image to be prepared.
+        The input image to be rotated.
+    
+    angle : float
+        The angle by which to rotate the image.
     
     Returns
     -------
     np.ndarray
-        The prepared image.
+        The rotated image.
     """
 
-    if len(img.shape) > 2:
-        img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    height, width = img.shape[:2]
+    center = (width // 2, height // 2)
 
-    img = cv2.bitwise_not(img)
+    M = cv2.getRotationMatrix2D(center, angle, 1.0)
+    rotated_img = cv2.warpAffine(img, M, (width, height))
 
-    _, img = cv2.threshold(img, 127, 255, cv2.THRESH_BINARY_INV)
-
-    img[img == 0] = 1
-    img[img == 255] = 0
-
-    return img
+    return rotated_img
 
 
-def histogramIt(horizontal_projection: np.array, width : int, height : int) -> np.ndarray:
+def getHistogram(horizontal_projection: np.array, height : int, width : int) -> np.ndarray:
     """
     Create a histogram image based on the horizontal projection of an image.
     
@@ -99,3 +102,24 @@ def histogramIt(horizontal_projection: np.array, width : int, height : int) -> n
         )
 
     return hist
+
+
+def otsuThreshold(img: np.ndarray) -> np.ndarray:
+    """
+    Applies Otsu's thresholding method to the input image.
+
+    Parameters
+    ----------
+    img : np.ndarray
+        The input image to be thresholded.
+    
+    Returns
+    -------
+    np.ndarray
+        The thresholded image.
+    """
+
+    _, th_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    th_img[th_img == 0] = 1
+    th_img[th_img == 255] = 0
+    return th_img
