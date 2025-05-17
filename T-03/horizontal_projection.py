@@ -1,6 +1,6 @@
 from utils import *
 
-def projectHorizontally(src_img: np.ndarray) -> float:
+def projectHorizontally(src_img: np.ndarray) -> int:
     """
     Algorithm that rotates the image based on its horizontal projection.
     

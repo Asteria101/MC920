@@ -16,11 +16,10 @@ def main():
 
     source = cv2.imread(os.path.join("in-images", input_image))
     source = cv2.cvtColor(source, cv2.COLOR_BGR2GRAY)
+    # Binarization of source image, using otsu
+    image = otsuThreshold(source)
     
     if mode == "hp":
-        # Binarization of source image, using otsu
-        image = otsuThreshold(source)
-
         # Histogram of the source image
         hist = getHistogram(
                             np.sum(image, axis=1),
@@ -30,6 +29,7 @@ def main():
         save(hist, os.path.join("out-images/horizontal-projection", f"hist_{input_image}"))
         
         angle = projectHorizontally(image)
+        print(angle)
         rotated_img = rotate(image, angle)
 
         hist = getHistogram(
@@ -42,7 +42,6 @@ def main():
         save(hist, os.path.join("out-images/horizontal-projection", f"hist_rot_{input_image}"))
 
     elif mode == "ht":
-        image = otsuThreshold(source)
         angle = applyHoughTransform(image)
 
         if angle != "No line detected":

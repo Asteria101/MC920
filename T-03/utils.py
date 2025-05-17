@@ -7,7 +7,6 @@ import subprocess
 import os
 
 
-
 def show(img: np.ndarray) -> None:
     """
     Display an image using matplotlib.
@@ -40,6 +39,27 @@ def save(img: np.ndarray, filepath: str) -> None:
         img = img[:, :, 0]
 
     plt.imsave(filepath, img, cmap='gray')
+
+
+def otsuThreshold(img: np.ndarray) -> np.ndarray:
+    """
+    Applies Otsu's thresholding method to the input image.
+
+    Parameters
+    ----------
+    img : np.ndarray
+        The input image to be thresholded.
+    
+    Returns
+    -------
+    np.ndarray
+        The thresholded image.
+    """
+
+    _, th_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    th_img[th_img == 0] = 1
+    th_img[th_img == 255] = 0
+    return th_img
 
 
 def rotate(img: np.ndarray, angle: float) -> np.ndarray:
@@ -102,24 +122,3 @@ def getHistogram(horizontal_projection: np.array, height : int, width : int) -> 
         )
 
     return hist
-
-
-def otsuThreshold(img: np.ndarray) -> np.ndarray:
-    """
-    Applies Otsu's thresholding method to the input image.
-
-    Parameters
-    ----------
-    img : np.ndarray
-        The input image to be thresholded.
-    
-    Returns
-    -------
-    np.ndarray
-        The thresholded image.
-    """
-
-    _, th_img = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    th_img[th_img == 0] = 1
-    th_img[th_img == 255] = 0
-    return th_img

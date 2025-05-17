@@ -1,21 +1,20 @@
 from utils import *
 
 filetype = '.png'
-mode = 'ht'
 
 def execute():
     # Input format
-    # python3 execute.py <program> <input-folder> <output-folder>
-    # Script resposible for executing the <program> by reading all entries from <input-folder>
+    # python3 execute.py align.py <input-folder> <output-folder>
+    # Script resposible for executing the align.py by reading all entries from <input-folder>
     # and saving the outputs in the <output-folder>.
 
     if len(argv) != 4:
-        print("Usage: python3 execute.py <program> <input-folder> <output-folder>")
+        print("Usage: python3 execute.py align.py <input-folder> <mode>")
         return
     
     main_script = argv[1]
     input_folder = argv[2]
-    output_folder = argv[3]
+    mode = argv[3]
     
     try:
         files = os.listdir(input_folder)
