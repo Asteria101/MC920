@@ -8,8 +8,8 @@ def main():
         return
     
     # read source image and convert to grayscale
-    labeled_src = ski.io.imread(f"in-images/{argv[1]}")
-    mono = ski.color.rgb2gray(labeled_src)
+    src = ski.io.imread(f"in-images/{argv[1]}")
+    mono = ski.color.rgb2gray(src)
     mono = cv2.threshold(mono, 0.8, 1, cv2.THRESH_BINARY)[1]
     mono = (mono * 255).astype(np.uint8)
     #save(mono, f"out-images/mono_{argv[1]}")
@@ -39,11 +39,11 @@ def main():
 
         cx, cy = (int(M['m10'] / area), int(M['m01'] / area))
         if i < 10:
-            cv2.putText(labeled_src, f"{i}", (cx-5, cy+5), cv2.FONT_HERSHEY_COMPLEX, .5, (0, 0, 0), 2)
-            cv2.putText(labeled_src, f"{i}", (cx-5, cy+5), cv2.FONT_HERSHEY_COMPLEX, .5, (255, 255, 255), 1)
+            cv2.putText(src, f"{i}", (cx-5, cy+5), cv2.FONT_HERSHEY_COMPLEX, .5, (0, 0, 0), 2)
+            cv2.putText(src, f"{i}", (cx-5, cy+5), cv2.FONT_HERSHEY_COMPLEX, .5, (255, 255, 255), 1)
         else:
-            cv2.putText(labeled_src, f"{i}", (cx-10, cy+5), cv2.FONT_HERSHEY_COMPLEX, .5, (0, 0, 0), 2)
-            cv2.putText(labeled_src, f"{i}", (cx-10, cy+5), cv2.FONT_HERSHEY_COMPLEX, .5, (255, 255, 255), 1)
+            cv2.putText(src, f"{i}", (cx-10, cy+5), cv2.FONT_HERSHEY_COMPLEX, .5, (0, 0, 0), 2)
+            cv2.putText(src, f"{i}", (cx-10, cy+5), cv2.FONT_HERSHEY_COMPLEX, .5, (255, 255, 255), 1)
 
         if area < 1500:
             small += 1
@@ -52,7 +52,7 @@ def main():
         elif area >= 3000:
             large += 1
 
-    #save(labeled_src, f"out-images/labeled_{argv[1]}")
+    #save(src, f"out-images/labeled_{argv[1]}")
 
     print(f"\nnúmero de regiões pequenas: {small:>2}")
     print(f"número de regiões médias: {medium:>2}")
