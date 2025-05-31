@@ -35,7 +35,7 @@ def main():
         eccentricity = getEccentricity(obj)
         solidity = getSolidity(obj)
 
-        print(f"região {i:>2}:  área: {area:>5.0f}  perímetro: {perimeter:>11.6f}  excentricidade: {eccentricity:>8.6f}  solidez: {solidity:>8.6f}")
+        print(f"região {i:>2}: área: {area:>4.0f} perímetro: {perimeter:>10.6f} excentricidade: {eccentricity:>8.6f} solidez: {solidity:>8.6f}")
 
         cx, cy = (int(M['m10'] / area), int(M['m01'] / area))
         if i < 10:

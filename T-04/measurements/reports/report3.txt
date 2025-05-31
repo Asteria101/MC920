@@ -1,14 +1,14 @@
 número de regiões: 9
 
-região  0:  área:  4107  perímetro:  319.421354  excentricidade: 1.113481  solidez: 0.754963
-região  1:  área:   844  perímetro:  125.639609  excentricidade: 1.023938  solidez: 0.904558
-região  2:  área:  3690  perímetro:  265.119838  excentricidade: 1.164069  solidez: 0.978264
-região  3:  área:   584  perímetro:  104.911687  excentricidade: 1.224930  solidez: 0.913928
-região  4:  área:   478  perímetro:   94.426406  excentricidade: 1.240083  solidez: 0.925460
-região  5:  área:  1762  perímetro:  179.781745  excentricidade: 1.781643  solidez: 0.971862
-região  6:  área:   688  perímetro:  108.669047  excentricidade: 2.080398  solidez: 0.972458
-região  7:  área:  4067  perímetro:  311.078208  excentricidade: 1.139223  solidez: 0.780689
-região  8:  área:   716  perímetro:  101.982755  excentricidade: 1.243028  solidez: 0.980164
+região 0: área: 4107 perímetro: 319.421354 excentricidade: 1.113481 solidez: 0.754963
+região 1: área:  844 perímetro: 125.639609 excentricidade: 1.023938 solidez: 0.904558
+região 2: área: 3690 perímetro: 265.119838 excentricidade: 1.164069 solidez: 0.978264
+região 3: área:  584 perímetro: 104.911687 excentricidade: 1.224930 solidez: 0.913928
+região 4: área:  478 perímetro:  94.426406 excentricidade: 1.240083 solidez: 0.925460
+região 5: área: 1762 perímetro: 179.781745 excentricidade: 1.781643 solidez: 0.971862
+região 6: área:  688 perímetro: 108.669047 excentricidade: 2.080398 solidez: 0.972458
+região 7: área: 4067 perímetro: 311.078208 excentricidade: 1.139223 solidez: 0.780689
+região 8: área:  716 perímetro: 101.982755 excentricidade: 1.243028 solidez: 0.980164
 
 número de regiões pequenas:  5
 número de regiões médias:  1

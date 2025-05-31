@@ -54,9 +54,9 @@ def getContours(src_img: np.ndarray) -> list[np.array]:
         A list of contours found in the image.
     """
 
-    canvas = np.ones_like(src_img, np.uint8) * 255
     contours = cv2.findContours(src_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)[0]
 
+    canvas = np.ones_like(src_img, np.uint8) * 255
     contoured_image = cv2.drawContours(canvas, contours, -1, (0, 0, 0), 0)
     save(contoured_image, f"out-images/contoured_{argv[1]}")
 
