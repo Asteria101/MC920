@@ -15,8 +15,7 @@ def read() -> argparse.Namespace:
                     [-s scale] 
                     [-d width height] 
                     [-m interpolation] 
-                    [-i input] 
-                    [-o output]
+                    [-i input]
 
     Returns
     -------
