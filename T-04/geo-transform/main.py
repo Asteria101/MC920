@@ -92,7 +92,7 @@ def main():
     else:
         raise ValueError("Invalid interpolation method. Use 'n', 'b', 'bi', or 'l'.")
 
-    save(T, f"out-images/esc_{args.s}_{args.m}_{args.i.split("/")[-1]}")
+    save(T[:args.d[1], :args.d[0]], f"out-images/res_{args.d[0]}x{args.d[1]}_{args.m}_{args.i.split("/")[-1]}")
 
 if __name__ == "__main__":
     main()
